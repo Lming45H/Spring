@@ -1,0 +1,3 @@
+1.首先给类都加上四类注解的一个使之成为spring管理的bean 默认id为首字母小写
+2.给类中要注入的属性 注入值@value
+或对象@Autowired @Qualifier("tool")结合并指定注入的名称

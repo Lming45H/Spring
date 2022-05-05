@@ -1,0 +1,38 @@
+aop
+    1.引入依赖
+    2.编写配置类开启aop 包扫描
+    3.定义切面 --类@Aspect
+        切入点：匹配规则，规定什么方法需要被拦截
+        定义切入点
+            @Pointcut("匹配规则")
+            切入点表达式：
+                1.执行任意公共方法
+                execution(public *(..))
+                2.执行任意的set方法
+                execution(* set*()..)
+                3.执行com.xxx.service包下的任意类任意方法
+                execution(* com.xxx.service.*.*(..))
+                4.执行com.xxx.service包及子包下的任意类任意方法
+                execution(* com.xxx.service..*.*(..))
+                注：
+                    表达式中第一个*代表的是方法的修饰范围
+            @Pointcut("execution(* com.xxx.service..*.*(..))")
+            public void cut(){}
+        定义通知
+           @Before(value="cut()")将通知应用到切入点上
+           public void before(){
+                //执行体
+           }
+           环绕通知：
+            @Around(value="cut()")
+            public Object around(ProcessdingPoint pjp){
+                //前置通知
+                Object obj = null;
+                try{
+                    obj = pjp.proceed();//不写这句话方法不会被调用，后续通知不被执行
+                    //返回通知
+                }catch(e){
+                    //异常通知
+                }
+                //最终通知
+            }
